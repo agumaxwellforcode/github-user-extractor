@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="row pl-lg-5 pr-lg-5 pt-1 m-0 h-100" v-if="panel2 == true">
+      <div class="row pl-lg-5 pl-sm-1 pr-sm-1 pr-lg-5 pt-1 m-0 h-100" v-if="panel2 == true">
         <div class=" col-12 pl-lg-3 pr-lg-3 pt-1 fade-in">
           <div class="row m-0">
             <div class="col-sm-5 pl-lg-4 pb-lg-2 ">
