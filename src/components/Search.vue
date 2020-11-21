@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid wrapper bg-white p-lg-3">
+  <div class="container-fluid wrapper bg-white p-lg-3 p-sm-1">
       <div class="row p-lg-5 h-100" v-if="panel1 == true">
         <div class=" col-12 intro-container p-lg-5 fade-in">
           <div class="row">
