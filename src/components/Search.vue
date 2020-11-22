@@ -714,9 +714,8 @@
       </div>
     </div>
 
-    <a v-if="panel1 == false && panel3 == false" class="float shadow">
-      <i v-if="showList == false" class="fa fa-list my-float"></i>
-      <i v-else class="fa fa-id-card my-float"></i>
+    <a data-toggle="modal" data-target="#profile" class="float shadow">
+      <i  class="fa fa-id-card my-float"></i>
     </a>
 
     <button
@@ -728,6 +727,37 @@
     >
       Launch mobile view modal
     </button>
+
+
+<!-- Personal Modal -->
+<div class="modal fade" id="profile" tabindex="-1" aria-labelledby="profileLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="row justify-content-center">
+    
+      <div class="card col-12 p-0">
+        <img class="card-img-top" :src="personal.avatar_url" alt="Bologna">
+        <div class="card-body text-center">
+          <img class="avatar rounded-circle" :src="personal.avatar_url" alt="Bologna">{{ previewUser.location }}
+          <h4 class="card-title">{{personal.name}}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">{{personal.company}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted small"> <i class="fa fa-map-marker" aria-hidden="true"></i> {{personal.location}}</h6>
+   
+          <a :href="personal.html_url" target="blank" class="btn btn-primary btn-block text-white"><i class="fa fa-github" aria-hidden="true"></i></a>
+        </div>
+      
+    </div>
+  </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+
+
   </div>
 </template>
 
@@ -744,6 +774,7 @@ export default {
   },
   data() {
     return {
+      personal:{},
       rawData: [],
       result: [],
       users: [],
@@ -777,7 +808,9 @@ export default {
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.getMe()
+  },
   methods: {
     switchText() {
       this.panel1 = false;
@@ -787,7 +820,7 @@ export default {
     },
     async getMe() {
       axios
-        .get("https://api.github.com/search/users?q=tom", {
+        .get("https://api.github.com/users/agumaxwellforcode", {
           headers: {
             authorization: "none",
             // authorization: 'my secret token'
@@ -795,7 +828,7 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          this.result = response.data;
+          this.personal = response.data;
         })
         .catch((error) => {
           console.log(error);
