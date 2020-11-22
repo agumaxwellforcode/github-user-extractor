@@ -145,7 +145,11 @@
                       <i class="fa fa-arrow-left" aria-hidden="true"></i> Prev
                     </button>
                   </li>
-
+                  <li class="page-item   mr-2" :disabled="current_page == 1">
+                    <button class="page-link" disabled>
+                      {{ rawData.length }}
+                    </button>
+                  </li>
                   <li
                     class="page-item  ml-2"
                     :disabled="current_page == total_pages"
@@ -715,7 +719,7 @@
     </div>
 
     <a data-toggle="modal" data-target="#profile" class="float shadow">
-      <i  class="fa fa-id-card my-float"></i>
+      <i class="fa fa-id-card my-float"></i>
     </a>
 
     <button
@@ -728,41 +732,56 @@
       Launch mobile view modal
     </button>
 
+    <!-- Personal Modal -->
+    <div
+      class="modal fade"
+      id="profile"
+      tabindex="-1"
+      aria-labelledby="profileLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body p-0">
+            <div class="row justify-content-center">
+              <div class="card col-12 p-0">
+                <img
+                  class="card-img-top"
+                  :src="personal.avatar_url"
+                  alt="Bologna"
+                />
+                <div class="card-body text-center">
+                  <img
+                    class="avatar rounded-circle"
+                    :src="personal.avatar_url"
+                    alt="Bologna"
+                  />{{ previewUser.location }}
+                  <h4 class="card-title">{{ personal.name }}</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    {{ personal.company }}
+                  </h6>
+                  <h6 class="card-subtitle mb-2 text-muted small">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    {{ personal.location }}
+                  </h6>
 
-<!-- Personal Modal -->
-<div class="modal fade" id="profile" tabindex="-1" aria-labelledby="profileLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <div class="row justify-content-center">
-    
-      <div class="card col-12 p-0">
-        <img class="card-img-top" :src="personal.avatar_url" alt="Bologna">
-        <div class="card-body text-center">
-          <img class="avatar rounded-circle" :src="personal.avatar_url" alt="Bologna">{{ previewUser.location }}
-          <h4 class="card-title">{{personal.name}}</h4>
-          <h6 class="card-subtitle mb-2 text-muted">{{personal.company}}</h6>
-          <h6 class="card-subtitle mb-2 text-muted small"> <i class="fa fa-map-marker" aria-hidden="true"></i> {{personal.location}}</h6>
-   
-          <a :href="personal.html_url" target="blank" class="btn btn-primary btn-block text-white"><i class="fa fa-github" aria-hidden="true"></i></a>
+                  <a
+                    :href="personal.html_url"
+                    target="blank"
+                    class="btn btn-primary btn-block text-white"
+                    ><i class="fa fa-github" aria-hidden="true"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      
-    </div>
-  </div>
       </div>
-     
     </div>
-  </div>
-</div>
-
-
-
-
   </div>
 </template>
 
 <script>
-
 import axios from "axios";
 import $ from "jquery";
 
@@ -774,7 +793,7 @@ export default {
   },
   data() {
     return {
-      personal:{},
+      personal: {},
       rawData: [],
       result: [],
       users: [],
@@ -809,7 +828,7 @@ export default {
   },
 
   mounted() {
-    this.getMe()
+    this.getMe();
   },
   methods: {
     switchText() {
@@ -881,12 +900,11 @@ export default {
         })
         .finally(() => {
           if (window.innerWidth <= 768) {
-              console.log('Mobile')
-              $("#modal").click();
-            } else {
-               console.log('Large screen')
-            }
-          
+            console.log("Mobile");
+            $("#modal").click();
+          } else {
+            console.log("Large screen");
+          }
 
           console.log("finished");
           this.followers();
