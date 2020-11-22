@@ -847,7 +847,7 @@ export default {
           this.panel3 = !this.panel3;
         })
         .finally(() => {
-          if (window.innerWidth <= 992) {
+          if (window.innerWidth <= 768) {
               console.log('Mobile')
               $("#modal").click();
             } else {
