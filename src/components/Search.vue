@@ -847,12 +847,13 @@ export default {
           this.panel3 = !this.panel3;
         })
         .finally(() => {
-          if (window.innerWidth < 768) {
-              console.log('this.display = true')
+          if (window.innerWidth <= 992) {
+              console.log('Mobile')
+              $("#modal").click();
             } else {
-               console.log('this.display = false')
+               console.log('Large screen')
             }
-          $("#modal").click();
+          
 
           console.log("finished");
           this.followers();
