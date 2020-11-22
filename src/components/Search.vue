@@ -320,7 +320,7 @@
                   <div class="card-body p-0">
                     <div class="row justify-content-start section">
                       <div
-                        @click="preview(follower)"
+                        @click="previewFollower(follower)"
                         data-toggle="modal"
                         data-target="#exampleModal"
                         v-for="follower in previewUserFollowers"
@@ -417,6 +417,7 @@
           <!-- Modal for mobile preview -->
           <div
             class="modal fade"
+            data-backdrop="static"
             id="exampleModal"
             tabindex="-1"
             aria-labelledby="exampleModalLabel"
@@ -581,7 +582,7 @@
                       <div class="card-body p-0">
                         <div class="row justify-content-start section">
                           <div
-                            @click="preview(follower)"
+                            @click="previewFollower(follower)"
                             v-for="follower in previewUserFollowers"
                             :key="follower.id"
                             class="col-lg-4 "
@@ -895,6 +896,7 @@ export default {
         .catch((error) => {
           console.log(error);
           this.errorMessage = error.message;
+           $("#modal").click();
           this.panel2 = !this.panel2;
           this.panel3 = !this.panel3;
         })
@@ -902,6 +904,32 @@ export default {
           if (window.innerWidth <= 768) {
             console.log("Mobile");
             $("#modal").click();
+          } else {
+            console.log("Large screen");
+          }
+
+          console.log("finished");
+          this.followers();
+        });
+    },
+     previewFollower(user) {
+      axios
+        .get("https://api.github.com/users/" + user.login)
+        .then((response) => {
+          console.log(response.data);
+          this.previewUser = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.errorMessage = error.message;
+           $("#modal").click();
+          this.panel2 = !this.panel2;
+          this.panel3 = !this.panel3;
+        })
+        .finally(() => {
+          if (window.innerWidth <= 768) {
+            console.log("Mobile");
+            // $("#modal").click();
           } else {
             console.log("Large screen");
           }
@@ -924,8 +952,10 @@ export default {
         .catch((error) => {
           console.log(error);
           this.errorMessage = error.message;
+          
           this.panel2 = !this.panel2;
           this.panel3 = !this.panel3;
+           $("#modal").click();
         })
         .finally(() => {
           console.log("followers");
@@ -946,6 +976,7 @@ export default {
           this.errorMessage = error.message;
           this.panel2 = !this.panel2;
           this.panel3 = !this.panel3;
+           $("#modal").click();
         })
         .finally(() => {
           console.log("followers");
